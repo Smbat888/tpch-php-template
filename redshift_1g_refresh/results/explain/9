@@ -1,0 +1,39 @@
+                                                                     QUERY PLAN                                                                      
+-----------------------------------------------------------------------------------------------------------------------------------------------------
+ XN Limit  (cost=1351567139874.12..1351567139874.12 rows=1 width=72)
+   ->  XN Merge  (cost=1351567139874.12..1351567140024.50 rows=60150 width=72)
+         Merge Key: nation.n_name, "date_part"('year'::text, orders.o_orderdate)
+         ->  XN Network  (cost=1351567139874.12..1351567140024.50 rows=60150 width=72)
+               Send to leader
+               ->  XN Sort  (cost=1351567139874.12..1351567140024.50 rows=60150 width=72)
+                     Sort Key: nation.n_name, "date_part"('year'::text, orders.o_orderdate)
+                     ->  XN HashAggregate  (cost=351567134197.08..351567135099.33 rows=60150 width=72)
+                           ->  XN Hash Join DS_BCAST_INNER  (cost=4096200975.38..351567130480.82 rows=495501 width=72)
+                                 Hash Cond: ("outer".s_nationkey = "inner".n_nationkey)
+                                 ->  XN Hash Join DS_BCAST_INNER  (cost=4096200975.07..351555118092.95 rows=495502 width=51)
+                                       Hash Cond: ("outer".l_suppkey = "inner".s_suppkey)
+                                       ->  XN Hash Join DS_BCAST_INNER  (cost=4096200850.07..349155106819.18 rows=495501 width=59)
+                                             Hash Cond: ("outer".l_orderkey = "inner".o_orderkey)
+                                             ->  XN Hash Join DS_BCAST_INNER  (cost=4096182100.07..49155072242.87 rows=486963 width=63)
+                                                   Hash Cond: (("outer".l_partkey = "inner".p_partkey) AND ("outer".l_suppkey = "inner".ps_suppkey))
+                                                   ->  XN Seq Scan on lineitem  (cost=0.00..60012.15 rows=6001215 width=53)
+                                                   ->  XN Hash  (cost=4096181588.04..4096181588.04 rows=102405 width=34)
+                                                         ->  XN Hash Join DS_BCAST_INNER  (cost=2564.00..4096181588.04 rows=102405 width=34)
+                                                               Hash Cond: ("outer".ps_partkey = "inner".p_partkey)
+                                                               ->  XN Seq Scan on partsupp  (cost=0.00..8000.00 rows=800000 width=26)
+                                                               ->  XN Hash  (cost=2500.00..2500.00 rows=25601 width=8)
+                                                                     ->  XN Seq Scan on part  (cost=0.00..2500.00 rows=25601 width=8)
+                                                                           Filter: ((p_name)::text ~~ '%drab%'::text)
+                                             ->  XN Hash  (cost=15000.00..15000.00 rows=1500000 width=12)
+                                                   ->  XN Seq Scan on orders  (cost=0.00..15000.00 rows=1500000 width=12)
+                                       ->  XN Hash  (cost=100.00..100.00 rows=10000 width=16)
+                                             ->  XN Seq Scan on supplier  (cost=0.00..100.00 rows=10000 width=16)
+                                 ->  XN Hash  (cost=0.25..0.25 rows=25 width=37)
+                                       ->  XN Seq Scan on nation  (cost=0.00..0.25 rows=25 width=37)
+(30 rows)
+
+          nation           | o_year | sum_profit 
+---------------------------+--------+------------
+ ALGERIA                   |   1998 |   30565912
+(1 row)
+

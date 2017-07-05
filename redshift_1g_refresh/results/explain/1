@@ -1,0 +1,19 @@
+                                                 QUERY PLAN                                                 
+------------------------------------------------------------------------------------------------------------
+ XN Limit  (cost=1000000225031.03..1000000225031.03 rows=1 width=47)
+   ->  XN Merge  (cost=1000000225031.03..1000000225031.04 rows=6 width=47)
+         Merge Key: l_returnflag, l_linestatus
+         ->  XN Network  (cost=1000000225031.03..1000000225031.04 rows=6 width=47)
+               Send to leader
+               ->  XN Sort  (cost=1000000225031.03..1000000225031.04 rows=6 width=47)
+                     Sort Key: l_returnflag, l_linestatus
+                     ->  XN HashAggregate  (cost=225030.74..225030.95 rows=6 width=47)
+                           ->  XN Seq Scan on lineitem  (cost=0.00..75015.19 rows=6000622 width=47)
+                                 Filter: (l_shipdate <= '1998-12-01 00:00:00'::timestamp without time zone)
+(10 rows)
+
+ l_returnflag | l_linestatus | sum_qty  | sum_base_price | sum_disc_price | sum_charge  | avg_qty | avg_price | avg_disc | count_order 
+--------------+--------------+----------+----------------+----------------+-------------+---------+-----------+----------+-------------
+ A            | F            | 37734107 |    56585849573 |    56585849573 | 56585849573 |      25 |     38272 |        0 |     1478493
+(1 row)
+

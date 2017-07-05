@@ -1,0 +1,17 @@
+                                                                  QUERY PLAN                                                                  
+----------------------------------------------------------------------------------------------------------------------------------------------
+ XN Limit  (cost=454518.25..454518.27 rows=1 width=43)
+   ->  XN Aggregate  (cost=454518.25..454518.27 rows=1 width=43)
+         ->  XN Hash Join DS_BCAST_INNER  (cost=90018.23..454518.24 rows=1 width=43)
+               Hash Cond: ("outer".p_partkey = "inner".l_partkey)
+               ->  XN Seq Scan on part  (cost=0.00..2000.00 rows=200000 width=32)
+               ->  XN Hash  (cost=90018.22..90018.22 rows=1 width=27)
+                     ->  XN Seq Scan on lineitem  (cost=0.00..90018.22 rows=1 width=27)
+                           Filter: ((l_shipdate < '1993-11-01 00:00:00'::timestamp without time zone) AND (l_shipdate >= '1993-11-01'::date))
+(8 rows)
+
+ promo_revenue 
+---------------
+              
+(1 row)
+

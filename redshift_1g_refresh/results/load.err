@@ -1,0 +1,16 @@
+perl: warning: Setting locale failed.
+perl: warning: Please check that your locale settings:
+	LANGUAGE = (unset),
+	LC_ALL = (unset),
+	LC_CTYPE = "UTF-8",
+	LANG = "en_US.UTF-8"
+    are supported and installed on your system.
+perl: warning: Falling back to a fallback locale ("en_US.UTF-8").
+INFO:  Load into table 'part' completed, 200000 record(s) loaded successfully.
+INFO:  Load into table 'region' completed, 5 record(s) loaded successfully.
+INFO:  Load into table 'nation' completed, 25 record(s) loaded successfully.
+INFO:  Load into table 'supplier' completed, 10000 record(s) loaded successfully.
+INFO:  Load into table 'customer' completed, 150000 record(s) loaded successfully.
+INFO:  Load into table 'partsupp' completed, 800000 record(s) loaded successfully.
+INFO:  Load into table 'orders' completed, 1500000 record(s) loaded successfully.
+INFO:  Load into table 'lineitem' completed, 6001215 record(s) loaded successfully.

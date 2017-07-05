@@ -1,0 +1,30 @@
+                                                                                                                                             QUERY PLAN                                                                                                                                             
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ XN Limit  (cost=1017192592015.16..1017192592015.16 rows=1 width=101)
+   ->  XN Merge  (cost=1017192592015.16..1017192592043.81 rows=11461 width=101)
+         Merge Key: count(ps_suppkey), p_brand, p_type, p_size
+         ->  XN Network  (cost=1017192592015.16..1017192592043.81 rows=11461 width=101)
+               Send to leader
+               ->  XN Sort  (cost=1017192592015.16..1017192592043.81 rows=11461 width=101)
+                     Sort Key: count(ps_suppkey), p_brand, p_type, p_size
+                     ->  XN HashAggregate  (cost=17192591213.78..17192591242.43 rows=11461 width=101)
+                           ->  XN Subquery Scan volt_dt_0  (cost=17192588921.68..17192590067.73 rows=114605 width=101)
+                                 ->  XN HashAggregate  (cost=17192588921.68..17192588921.68 rows=114605 width=50)
+                                       ->  XN Hash NOT IN Join DS_BCAST_INNER  (cost=7196.64..17192587775.63 rows=114605 width=50)
+                                             Hash Cond: ("outer".ps_suppkey = "inner".s_suppkey)
+                                             ->  XN Hash Join DS_BCAST_INNER  (cost=7071.64..17192426217.79 rows=114617 width=50)
+                                                   Hash Cond: ("outer".ps_partkey = "inner".p_partkey)
+                                                   ->  XN Seq Scan on partsupp  (cost=0.00..8000.00 rows=800000 width=16)
+                                                   ->  XN Hash  (cost=7000.00..7000.00 rows=28654 width=50)
+                                                         ->  XN Seq Scan on part  (cost=0.00..7000.00 rows=28654 width=50)
+                                                               Filter: (((p_size = 3) OR (p_size = 6) OR (p_size = 20) OR (p_size = 21) OR (p_size = 24) OR (p_size = 26) OR (p_size = 32) OR (p_size = 37)) AND (p_brand <> 'Brand#15'::bpchar) AND ((p_type)::text !~~ 'PROMO BURNISHED%'::text))
+                                             ->  XN Hash  (cost=125.00..125.00 rows=1 width=8)
+                                                   ->  XN Seq Scan on supplier  (cost=0.00..125.00 rows=1 width=8)
+                                                         Filter: ((s_comment)::text ~~ '%Customer%Complaints%'::text)
+(21 rows)
+
+  p_brand   |       p_type        | p_size | supplier_cnt 
+------------+---------------------+--------+--------------
+ Brand#55   | LARGE BURNISHED TIN |     21 |           36
+(1 row)
+

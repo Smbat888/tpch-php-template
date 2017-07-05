@@ -1,0 +1,241 @@
+<html><head>
+			 <style>
+        body {
+            font-family: 'Open Sans', sans-serif;
+            line-height: 1.5;
+            font-size: 14px;
+            line-height: 1.5;
+						overflow-x: hidden;
+        }
+
+        .header {
+           /* background-color: #214D8B;*/
+            background-color: #2c3f50;
+            padding-top: 18px;
+            padding-bottom: 18px;
+        }
+
+        .head-row {
+            margin-left: 0;
+            margin-right: 0;
+
+        }
+
+        li {
+            color: #1b2731;
+        }
+
+        .title span {
+            font-size: 40px;
+            line-height: 31.92px;
+            color: white;
+            margin-left: 24px;
+
+        }
+
+        .title p {
+            font-size: 16px;
+            margin-left: 88px;
+            margin-top: 6px;
+            color: white;
+            font-weight: 100;
+            margin-bottom: 0;
+        }
+
+        .test-description {
+            font-size: 24px;
+            margin-top: 12px;
+            color: #2c3f50;
+        }
+
+        table {
+            border-color: #a6a6a6;
+            margin-top: 24px;
+            border: 1px;
+            width: 100%;
+        }
+
+        table tr td {
+            padding-top: 8px;
+            padding-bottom: 8px;
+            padding-left: 6px;
+            padding-right: 6px;
+            font-size: 14px;
+        }
+
+        table tr th {
+            padding-top: 10px;
+            padding-bottom: 10px;
+            padding-left: 12px;
+            font-size: 16px;
+            font-weight: 500;
+            color: #2c3f50;
+            background: #ddd;
+        }
+
+        .inside{
+            margin: auto;
+            max-width: 1200px;
+        }
+
+        .main-content {
+            margin-left: 0;
+            margin-right: 0;
+        }
+
+        /****************/
+        p.accordion {
+            color: #2c3f50;
+            cursor: pointer;
+            margin-top: 12px;
+            width: 25%;
+            font-size: 16px;
+
+        }
+
+        /*p.accordion.active, p.accordion:hover {*/
+            /*color: #6b8eae;*/
+        /*}*/
+
+        p.accordion:after {
+            content: url('resources/arrowhead-pointing-to-the-right (1).svg');
+            font-weight: bold;
+            float: left;
+            padding-top: 6px;
+            margin-right: 12px;
+        }
+
+        p.accordion.active:after {
+            content: url('resources/caret-down.svg');
+            padding-top: 5px;
+            margin-right: 12px;
+        }
+
+        div.panel {
+            /*padding: 0 50px;*/
+            background-color: white;
+            max-height: 0;
+            overflow: hidden;
+            border-bottom:none !important;
+            transition: max-height 0.2s ease-out;
+        }
+
+        /****************/
+
+    </style>
+			<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+		</head><body>
+
+<div class="row head-row">
+				<div class="col-xs-12 header">
+					<div class="title">
+						<span> TPC-H </span>
+						<p><i>Reports</i></p>
+					</div>
+				</div>
+			</div>
+
+			<div class="row main-content">
+				<div class="inside">
+				<div class="col-xs-12 text-center">
+					<p class="test-description"> Test on Greenplum</p>
+				</div>
+				<div class="col-xs-12">
+					<p class="accordion details">System details</p>
+					<div class="panel">
+						<ul>
+							<li>Memory 512GB</li>
+							<li>Disk 8GB</li>
+							<li>CPU A7</li>
+						</ul>
+					</div>
+        		<p class="accordion details">Test details</p>
+				<div class="panel">
+					<ul>
+						<li>Scale factor 5</li>
+						<li>Duration 7.0254584</li>
+						<li>Db Cache Hit Ratio 100</li>
+					</ul>
+				</div>
+    		</div>
+
+			<div class="col-xs-12">
+				<div class="tables row">
+					<div class="col-xs-12 col-sm-6 left-tables">
+						<table border="1">
+							<tr>
+								<th>Measurement Results</th>
+								<th>Value</th>
+							</tr>
+							<tr>
+								<td>Start of Database Load</td>
+								<td>2017-06-28 17:39:27</td>
+							</tr>
+							<tr>
+								<td>End of Database Load</td>
+								<td>2017-06-28 17:55:55</td>
+							</tr>
+							<tr>
+								<td>Database Load Time</td>
+								<td>988 sec.</td>
+							</tr>
+							<tr>
+								<td>TPC-H Power</td>
+								<td>4788.9872272183</td>
+							</tr>
+							<tr>
+								<td>TPC-H Throughput</td>
+								<td>473.11827956989</td>
+							</tr>
+							<tr>
+								<td>TPC-H Composite Query-Per-Hour Performance Metric</td>
+								<td>1505.2433018697</td>
+							</tr>
+						</table>
+
+						<table border="1">
+							<tr>
+								<th>TPCH Generating step </th>
+								<th>Duration </th>
+							</tr><tr><td>load</td><td>312 </td></tr><tr><td>pkeys</td><td>159 </td></tr><tr><td>fkeys</td><td>0 </td></tr><tr><td>indexes</td><td>517 </td></tr><tr><td>analyze</td><td>15 </td></tr><tr><td>benchmark</td><td>837 </td></tr></table>
+							<table border="1">
+								<tr>
+									<th>Refresh Query Name</th>
+									<th>Duration(Avg)</th>
+								</tr>
+								<tr>
+									<td>Q1</td>
+									<td>4.4128904761905</td>
+								</tr>
+								<tr>
+									<td>Q2</td>
+									<td>0.60796666666667</td>
+								</tr>
+							</table>
+						</div><div class="col-xs-12 col-sm-6 right-tables">
+								<table border="1">
+								<tr>
+									<th>Query Name </th>
+									<th>Duration </th>
+								</tr><tr><td>Q1</td><td>74.05 </td></tr><tr><td>Q2</td><td>11.96 </td></tr><tr><td>Q3</td><td>14.15 </td></tr><tr><td>Q4</td><td>0.2 </td></tr><tr><td>Q5</td><td>0.26 </td></tr><tr><td>Q6</td><td>0.18 </td></tr><tr><td>Q7</td><td>17.62 </td></tr><tr><td>Q8</td><td>20.1 </td></tr><tr><td>Q9</td><td>33.16 </td></tr><tr><td>Q10</td><td>0.26 </td></tr><tr><td>Q11</td><td>3.09 </td></tr><tr><td>Q12</td><td>0.23 </td></tr><tr><td>Q13</td><td>15.1 </td></tr><tr><td>Q14</td><td>0.22 </td></tr><tr><td>Q15</td><td>0.53 </td></tr><tr><td>Q16</td><td>4.35 </td></tr><tr><td>Q17</td><td>75.53 </td></tr><tr><td>Q18</td><td>44.75 </td></tr><tr><td>Q19</td><td>2.99 </td></tr><tr><td>Q20</td><td>2.32 </td></tr><tr><td>Q21</td><td>56.88 </td></tr><tr><td>Q22</td><td>9.06 </td></tr></table>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div><script>
+				var acc = document.getElementsByClassName("accordion");
+				var i;
+
+				for (i = 0; i < acc.length; i++) {
+					acc[i].onclick = function() {
+						this.classList.toggle("active");
+						var panel = this.nextElementSibling;
+						if (panel.style.maxHeight){
+							panel.style.maxHeight = null;
+						} else {
+							panel.style.maxHeight = panel.scrollHeight + "px";
+						}
+					}
+				}
+			</script>
+</body></html>

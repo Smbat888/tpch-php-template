@@ -1,0 +1,22 @@
+                                                                                                                                                   QUERY PLAN                                                                                                                                                   
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ XN Limit  (cost=1000000503780.42..1000000503780.43 rows=1 width=33)
+   ->  XN Merge  (cost=1000000503780.42..1000000503780.43 rows=1 width=33)
+         Merge Key: lineitem.l_shipmode
+         ->  XN Network  (cost=1000000503780.42..1000000503780.43 rows=1 width=33)
+               Send to leader
+               ->  XN Sort  (cost=1000000503780.42..1000000503780.43 rows=1 width=33)
+                     Sort Key: lineitem.l_shipmode
+                     ->  XN HashAggregate  (cost=503780.40..503780.41 rows=1 width=33)
+                           ->  XN Hash Join DS_BCAST_INNER  (cost=150030.38..503780.39 rows=1 width=33)
+                                 Hash Cond: ("outer".o_orderkey = "inner".l_orderkey)
+                                 ->  XN Seq Scan on orders  (cost=0.00..15000.00 rows=1500000 width=27)
+                                 ->  XN Hash  (cost=150030.38..150030.38 rows=1 width=22)
+                                       ->  XN Seq Scan on lineitem  (cost=0.00..150030.38 rows=1 width=22)
+                                             Filter: ((l_receiptdate < '1993-01-01 00:00:00'::timestamp without time zone) AND (l_receiptdate >= '1993-01-01'::date) AND ((l_shipmode = 'REG AIR'::bpchar) OR (l_shipmode = 'FOB'::bpchar)) AND (l_commitdate < l_receiptdate) AND (l_shipdate < l_commitdate))
+(14 rows)
+
+ l_shipmode | high_line_count | low_line_count 
+------------+-----------------+----------------
+(0 rows)
+

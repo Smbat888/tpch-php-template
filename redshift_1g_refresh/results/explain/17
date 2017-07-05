@@ -1,0 +1,24 @@
+                                                      QUERY PLAN                                                      
+----------------------------------------------------------------------------------------------------------------------
+ XN Limit  (cost=142553547.31..142553547.32 rows=1 width=11)
+   ->  XN Aggregate  (cost=142553547.31..142553547.32 rows=1 width=11)
+         ->  XN Hash Join DS_BCAST_INNER  (cost=32098426.37..142553542.38 rows=1971 width=11)
+               Hash Cond: ("outer".l_partkey = "inner".p_partkey)
+               Join Filter: (("outer".l_quantity)::numeric(20,1) < "inner".avg_quantity)
+               ->  XN Seq Scan on lineitem  (cost=0.00..60012.15 rows=6001215 width=29)
+               ->  XN Hash  (cost=32098425.88..32098425.88 rows=197 width=48)
+                     ->  XN Hash Join DS_BCAST_INNER  (cost=93018.73..32098425.88 rows=197 width=48)
+                           Hash Cond: ("outer".agg_partkey = "inner".p_partkey)
+                           ->  XN Subquery Scan part_agg  (cost=90018.23..92966.51 rows=196552 width=40)
+                                 ->  XN HashAggregate  (cost=90018.23..91000.99 rows=196552 width=18)
+                                       ->  XN Seq Scan on lineitem  (cost=0.00..60012.15 rows=6001215 width=18)
+                           ->  XN Hash  (cost=3000.00..3000.00 rows=200 width=8)
+                                 ->  XN Seq Scan on part  (cost=0.00..3000.00 rows=200 width=8)
+                                       Filter: ((p_container = 'SM PACK'::bpchar) AND (p_brand = 'Brand#55'::bpchar))
+(15 rows)
+
+ avg_yearly  
+-------------
+ 258310.7142
+(1 row)
+

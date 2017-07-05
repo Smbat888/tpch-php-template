@@ -1,0 +1,5 @@
+        supp_nation        |        cust_nation        | l_year | revenue  
+---------------------------+---------------------------+--------+----------
+ MOROCCO                   | UNITED STATES             |   1995 | 50542854
+(1 row)
+

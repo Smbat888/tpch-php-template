@@ -1,0 +1,39 @@
+                                                                                                 QUERY PLAN                                                                                                 
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ XN Limit  (cost=1000002241253.10..1000002241253.11 rows=1 width=48)
+   ->  XN Merge  (cost=1000002241253.10..1000002241253.11 rows=1 width=48)
+         Merge Key: sum((lineitem.l_extendedprice * (1::numeric - lineitem.l_discount)))
+         ->  XN Network  (cost=1000002241253.10..1000002241253.11 rows=1 width=48)
+               Send to leader
+               ->  XN Sort  (cost=1000002241253.10..1000002241253.11 rows=1 width=48)
+                     Sort Key: sum((lineitem.l_extendedprice * (1::numeric - lineitem.l_discount)))
+                     ->  XN HashAggregate  (cost=2241253.08..2241253.09 rows=1 width=48)
+                           ->  XN Hash Join DS_BCAST_INNER  (cost=1440903.07..2241253.08 rows=1 width=48)
+                                 Hash Cond: (("outer".s_suppkey = "inner".l_suppkey) AND ("outer".s_nationkey = "inner".c_nationkey))
+                                 ->  XN Seq Scan on supplier  (cost=0.00..100.00 rows=10000 width=16)
+                                 ->  XN Hash  (cost=1440903.06..1440903.06 rows=1 width=72)
+                                       ->  XN Hash Join DS_BCAST_INNER  (cost=665875.68..1440903.06 rows=1 width=72)
+                                             Hash Cond: ("outer".l_orderkey = "inner".o_orderkey)
+                                             ->  XN Seq Scan on lineitem  (cost=0.00..60012.15 rows=6001215 width=35)
+                                             ->  XN Hash  (cost=665875.68..665875.68 rows=1 width=53)
+                                                   ->  XN Hash Join DS_BCAST_INNER  (cost=265875.08..665875.68 rows=1 width=53)
+                                                         Hash Cond: ("outer".n_regionkey = "inner".r_regionkey)
+                                                         ->  XN Hash Join DS_BCAST_INNER  (cost=265875.02..505875.59 rows=1 width=61)
+                                                               Hash Cond: ("outer".n_nationkey = "inner".c_nationkey)
+                                                               ->  XN Seq Scan on nation  (cost=0.00..0.25 rows=25 width=45)
+                                                               ->  XN Hash  (cost=265875.01..265875.01 rows=1 width=16)
+                                                                     ->  XN Hash Join DS_BCAST_INNER  (cost=22500.00..265875.01 rows=1 width=16)
+                                                                           Hash Cond: ("outer".c_custkey = "inner".o_custkey)
+                                                                           ->  XN Seq Scan on customer  (cost=0.00..1500.00 rows=150000 width=16)
+                                                                           ->  XN Hash  (cost=22500.00..22500.00 rows=1 width=16)
+                                                                                 ->  XN Seq Scan on orders  (cost=0.00..22500.00 rows=1 width=16)
+                                                                                       Filter: ((o_orderdate < '1993-01-01 00:00:00'::timestamp without time zone) AND (o_orderdate >= '1993-01-01'::date))
+                                                         ->  XN Hash  (cost=0.06..0.06 rows=1 width=8)
+                                                               ->  XN Seq Scan on "region"  (cost=0.00..0.06 rows=1 width=8)
+                                                                     Filter: (r_name = 'EUROPE'::bpchar)
+(31 rows)
+
+ n_name | revenue 
+--------+---------
+(0 rows)
+

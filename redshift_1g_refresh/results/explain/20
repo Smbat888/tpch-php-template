@@ -1,0 +1,38 @@
+                                                                                    QUERY PLAN                                                                                    
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ XN Limit  (cost=1000002190752.76..1000002190752.77 rows=1 width=57)
+   ->  XN Merge  (cost=1000002190752.76..1000002190752.77 rows=1 width=57)
+         Merge Key: supplier.s_name
+         ->  XN Network  (cost=1000002190752.76..1000002190752.77 rows=1 width=57)
+               Send to leader
+               ->  XN Sort  (cost=1000002190752.76..1000002190752.77 rows=1 width=57)
+                     Sort Key: supplier.s_name
+                     ->  XN Hash IN Join DS_BCAST_INNER  (cost=830518.74..2190752.75 rows=1 width=57)
+                           Hash Cond: ("outer".s_suppkey = "inner".ps_suppkey)
+                           ->  XN Hash Join DS_BCAST_INNER  (cost=0.32..160229.32 rows=400 width=65)
+                                 Hash Cond: ("outer".s_nationkey = "inner".n_nationkey)
+                                 ->  XN Seq Scan on supplier  (cost=0.00..100.00 rows=10000 width=73)
+                                 ->  XN Hash  (cost=0.31..0.31 rows=1 width=8)
+                                       ->  XN Seq Scan on nation  (cost=0.00..0.31 rows=1 width=8)
+                                             Filter: (n_name = 'INDIA'::bpchar)
+                           ->  XN Hash  (cost=830518.41..830518.41 rows=5 width=16)
+                                 ->  XN Hash Join DS_BCAST_INNER  (cost=92518.26..830518.41 rows=5 width=16)
+                                       Hash Cond: (("outer".ps_suppkey = "inner".agg_suppkey) AND ("outer".ps_partkey = "inner".agg_partkey))
+                                       Join Filter: (("outer".ps_availqty)::numeric(11,1) > "inner".agg_quantity)
+                                       ->  XN Hash IN Join DS_BCAST_INNER  (cost=2500.00..180500.04 rows=4 width=28)
+                                             Hash Cond: ("outer".ps_partkey = "inner".p_partkey)
+                                             ->  XN Seq Scan on partsupp  (cost=0.00..8000.00 rows=800000 width=20)
+                                             ->  XN Hash  (cost=2500.00..2500.00 rows=1 width=8)
+                                                   ->  XN Seq Scan on part  (cost=0.00..2500.00 rows=1 width=8)
+                                                         Filter: ((p_name)::text ~~ 'powder%'::text)
+                                       ->  XN Hash  (cost=90018.25..90018.25 rows=1 width=48)
+                                             ->  XN Subquery Scan agg_lineitem  (cost=90018.23..90018.25 rows=1 width=48)
+                                                   ->  XN HashAggregate  (cost=90018.23..90018.24 rows=1 width=26)
+                                                         ->  XN Seq Scan on lineitem  (cost=0.00..90018.22 rows=1 width=26)
+                                                               Filter: ((l_shipdate < '1993-01-01 00:00:00'::timestamp without time zone) AND (l_shipdate >= '1993-01-01'::date))
+(30 rows)
+
+ s_name | s_address 
+--------+-----------
+(0 rows)
+

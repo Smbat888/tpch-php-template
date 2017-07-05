@@ -1,0 +1,27 @@
+                                                            QUERY PLAN                                                            
+----------------------------------------------------------------------------------------------------------------------------------
+ XN Limit  (cost=1383990464507.04..1383990464507.05 rows=1 width=8)
+   ->  XN Merge  (cost=1383990464507.04..1383990464507.54 rows=200 width=8)
+         Merge Key: count(*), c_count
+         ->  XN Network  (cost=1383990464507.04..1383990464507.54 rows=200 width=8)
+               Send to leader
+               ->  XN Sort  (cost=1383990464507.04..1383990464507.54 rows=200 width=8)
+                     Sort Key: count(*), c_count
+                     ->  XN HashAggregate  (cost=383990464498.90..383990464499.40 rows=200 width=8)
+                           ->  XN Subquery Scan c_orders  (cost=383990461873.90..383990463748.90 rows=150000 width=8)
+                                 ->  XN HashAggregate  (cost=383990461873.90..383990462248.90 rows=150000 width=16)
+                                       ->  XN Hash Right Join DS_DIST_BOTH  (cost=1875.00..383990454374.10 rows=1499960 width=16)
+                                             Outer Dist Key: orders.o_custkey
+                                             Inner Dist Key: customer.c_custkey
+                                             Hash Cond: ("outer".o_custkey = "inner".c_custkey)
+                                             ->  XN Seq Scan on orders  (cost=0.00..18750.00 rows=1499960 width=16)
+                                                   Filter: ((o_comment)::text !~~ '%special%packages%'::text)
+                                             ->  XN Hash  (cost=1500.00..1500.00 rows=150000 width=8)
+                                                   ->  XN Seq Scan on customer  (cost=0.00..1500.00 rows=150000 width=8)
+(18 rows)
+
+ c_count | custdist 
+---------+----------
+       0 |    50004
+(1 row)
+

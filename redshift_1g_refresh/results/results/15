@@ -1,0 +1,6 @@
+CREATE VIEW
+ s_suppkey | s_name | s_address | s_phone | total_revenue 
+-----------+--------+-----------+---------+---------------
+(0 rows)
+
+DROP VIEW

@@ -1,0 +1,18 @@
+perl: warning: Setting locale failed.
+perl: warning: Please check that your locale settings:
+	LANGUAGE = (unset),
+	LC_ALL = (unset),
+	LC_CTYPE = "UTF-8",
+	LANG = "en_US.UTF-8"
+    are supported and installed on your system.
+perl: warning: Falling back to a fallback locale ("en_US.UTF-8").
+ERROR:  SQL command "CREATE INDEX IDX_SUPPLIER_NATION_KEY ON SUPPLIER (S_NATIONKEY);" not supported on Redshift tables.
+ERROR:  SQL command "CREATE INDEX IDX_PARTSUPP_PARTKEY ON PARTSUPP (PS_PARTKEY);" not supported on Redshift tables.
+ERROR:  SQL command "CREATE INDEX IDX_PARTSUPP_SUPPKEY ON PARTSUPP (PS_SUPPKEY);" not supported on Redshift tables.
+ERROR:  SQL command "CREATE INDEX IDX_CUSTOMER_NATIONKEY ON CUSTOMER (C_NATIONKEY);" not supported on Redshift tables.
+ERROR:  SQL command "CREATE INDEX IDX_ORDERS_CUSTKEY ON ORDERS (O_CUSTKEY);" not supported on Redshift tables.
+ERROR:  SQL command "CREATE INDEX IDX_LINEITEM_ORDERKEY ON LINEITEM (L_ORDERKEY);" not supported on Redshift tables.
+ERROR:  SQL command "CREATE INDEX IDX_LINEITEM_PART_SUPP ON LINEITEM (L_PARTKEY,L_SUPPKEY);" not supported on Redshift tables.
+ERROR:  SQL command "CREATE INDEX IDX_NATION_REGIONKEY ON NATION (N_REGIONKEY);" not supported on Redshift tables.
+ERROR:  SQL command "CREATE INDEX IDX_LINEITEM_SHIPDATE ON LINEITEM (L_SHIPDATE, L_DISCOUNT, L_QUANTITY);" not supported on Redshift tables.
+ERROR:  SQL command "CREATE INDEX IDX_ORDERS_ORDERDATE ON ORDERS (O_ORDERDATE);" not supported on Redshift tables.

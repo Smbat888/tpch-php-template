@@ -1,0 +1,5 @@
+  p_brand   |       p_type        | p_size | supplier_cnt 
+------------+---------------------+--------+--------------
+ Brand#55   | LARGE BURNISHED TIN |     21 |           36
+(1 row)
+

@@ -1,0 +1,10 @@
+{
+    "system_specification": {
+        "hdd": "512GB",
+        "ram": "8GB",
+        "cpu": "A7"
+    },
+    "test_specification": {
+        "db_size": "30GB"
+    }
+}

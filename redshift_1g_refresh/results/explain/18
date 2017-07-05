@@ -1,0 +1,41 @@
+                                                                     QUERY PLAN                                                                     
+----------------------------------------------------------------------------------------------------------------------------------------------------
+ XN Limit  (cost=1001361530753.10..1001361530753.35 rows=100 width=63)
+   ->  XN Merge  (cost=1001361530753.10..1001361532260.79 rows=603077 width=63)
+         Merge Key: orders.o_totalprice, orders.o_orderdate
+         ->  XN Network  (cost=1001361530753.10..1001361532260.79 rows=603077 width=63)
+               Send to leader
+               ->  XN Sort  (cost=1001361530753.10..1001361532260.79 rows=603077 width=63)
+                     Sort Key: orders.o_totalprice, orders.o_orderdate
+                     ->  XN HashAggregate  (cost=1361471344.04..1361472851.73 rows=603077 width=63)
+                           ->  XN Hash Join DS_BCAST_INNER  (cost=640607230.50..1361462297.88 rows=603077 width=63)
+                                 Hash Cond: ("outer".l_orderkey = "inner".o_orderkey)
+                                 ->  XN Seq Scan on lineitem  (cost=0.00..60012.15 rows=6001215 width=18)
+                                 ->  XN Hash  (cost=640607227.99..640607227.99 rows=1001 width=61)
+                                       ->  XN Hash Join DS_BCAST_INNER  (cost=160123842.98..640607227.99 rows=1001 width=61)
+                                             Hash Cond: ("outer".c_custkey = "inner".o_custkey)
+                                             ->  XN Seq Scan on customer  (cost=0.00..1500.00 rows=150000 width=30)
+                                             ->  XN Hash  (cost=160123840.48..160123840.48 rows=1001 width=39)
+                                                   ->  XN Hash Join DS_BCAST_INNER  (cost=90080.48..160123840.48 rows=1001 width=39)
+                                                         Hash Cond: ("outer".o_orderkey = "inner".l_orderkey)
+                                                         ->  XN Seq Scan on orders  (cost=0.00..15000.00 rows=1500000 width=31)
+                                                         ->  XN Hash  (cost=90077.98..90077.98 rows=1000 width=8)
+                                                               ->  XN Subquery Scan "IN_subquery"  (cost=90018.23..90077.98 rows=1000 width=8)
+                                                                     ->  XN HashAggregate  (cost=90018.23..90067.98 rows=1000 width=18)
+                                                                           Filter: (sum(l_quantity) > 315::numeric)
+                                                                           ->  XN Seq Scan on lineitem  (cost=0.00..60012.15 rows=6001215 width=18)
+(24 rows)
+
+       c_name       | c_custkey | o_orderkey | o_orderdate | o_totalprice | sum 
+--------------------+-----------+------------+-------------+--------------+-----
+ Customer#000128120 |    128120 |    4722021 | 1994-04-07  |       544089 | 323
+ Customer#000144617 |    144617 |    3043270 | 1997-02-12  |       530604 | 317
+ Customer#000066790 |     66790 |    2199712 | 1996-09-30  |       515531 | 327
+ Customer#000015619 |     15619 |    3767271 | 1996-08-07  |       480083 | 318
+ Customer#000147197 |    147197 |    1263015 | 1997-02-02  |       467149 | 320
+ Customer#000117919 |    117919 |    2869152 | 1996-06-20  |       456815 | 317
+ Customer#000126865 |    126865 |    4702759 | 1994-11-07  |       447606 | 320
+ Customer#000036619 |     36619 |    4806726 | 1995-01-17  |       446704 | 328
+ Customer#000119989 |    119989 |    1544643 | 1997-09-20  |       434568 | 320
+(9 rows)
+

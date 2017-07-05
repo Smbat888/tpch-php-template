@@ -1,0 +1,19 @@
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           QUERY PLAN                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ XN Limit  (cost=95990525979.72..95990525979.73 rows=1 width=19)
+   ->  XN Aggregate  (cost=95990525979.72..95990525979.73 rows=1 width=19)
+         ->  XN Hash Join DS_BCAST_INNER  (cost=2999.95..95990525979.50 rows=88 width=19)
+               Hash Cond: ("outer".l_partkey = "inner".p_partkey)
+               Join Filter: ((("inner".p_brand = 'Brand#23'::bpchar) AND (("inner".p_container = 'LG BOX'::bpchar) OR ("inner".p_container = 'LG CASE'::bpchar) OR ("inner".p_container = 'LG PACK'::bpchar) OR ("inner".p_container = 'LG PKG'::bpchar)) AND ("outer".l_quantity >= 24::numeric) AND ("outer".l_quantity <= 34::numeric) AND ("inner".p_size <= 15)) OR (("inner".p_brand = 'Brand#12'::bpchar) AND (("inner".p_container = 'MED BAG'::bpchar) OR ("inner".p_container = 'MED BOX'::bpchar) OR ("inner".p_container = 'MED PACK'::bpchar) OR ("inner".p_container = 'MED PKG'::bpchar)) AND ("outer".l_quantity <= 24::numeric) AND ("outer".l_quantity >= 14::numeric) AND ("inner".p_size <= 10)) OR (("inner".p_brand = 'Brand#14'::bpchar) AND ("inner".p_size <= 5) AND (("inner".p_container = 'SM BOX'::bpchar) OR ("inner".p_container = 'SM CASE'::bpchar) OR ("inner".p_container = 'SM PACK'::bpchar) OR ("inner".p_container = 'SM PKG'::bpchar)) AND ("outer".l_quantity <= 16::numeric) AND ("outer".l_quantity >= 6::numeric)))
+               ->  XN Seq Scan on lineitem  (cost=0.00..105021.26 rows=217694 width=37)
+                     Filter: (((l_shipmode = 'AIR'::bpchar) OR (l_shipmode = 'AIR REG'::bpchar)) AND (l_shipinstruct = 'DELIVER IN PERSON'::bpchar))
+               ->  XN Hash  (cost=2500.00..2500.00 rows=199980 width=40)
+                     ->  XN Seq Scan on part  (cost=0.00..2500.00 rows=199980 width=40)
+                           Filter: (p_size >= 1)
+(10 rows)
+
+ revenue 
+---------
+ 3130817
+(1 row)
+

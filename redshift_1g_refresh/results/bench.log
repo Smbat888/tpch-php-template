@@ -1,0 +1,53 @@
+2017-07-01 16:45:48 [1498927548] : preparing TPC-H database
+2017-07-01 16:45:48 [1498927548] :   loading data
+2017-07-01 16:47:11 [1498927631] :   creating primary keys
+2017-07-01 16:47:12 [1498927632] :   creating foreign keys
+2017-07-01 16:47:14 [1498927634] :   creating indexes
+2017-07-01 16:47:14 [1498927634] :   analyzing
+2017-07-01 16:48:23 [1498927703] : running TPC-H benchmark
+2017-07-01 16:48:23 [1498927703] : running queries defined in TPC-H benchmark
+2017-07-01 16:48:23 [1498927703] :   running query 1
+2017-07-01 16:48:30 [1498927710] :     query 1 finished OK (2 seconds)
+2017-07-01 16:48:30 [1498927710] :   running query 2
+2017-07-01 16:48:48 [1498927728] :     query 2 finished OK (1 seconds)
+2017-07-01 16:48:48 [1498927728] :   running query 3
+2017-07-01 16:48:56 [1498927736] :     query 3 finished OK (1 seconds)
+2017-07-01 16:48:56 [1498927736] :   running query 4
+2017-07-01 16:48:58 [1498927738] :     query 4 finished OK (1 seconds)
+2017-07-01 16:48:58 [1498927738] :   running query 5
+2017-07-01 16:49:10 [1498927750] :     query 5 finished OK (1 seconds)
+2017-07-01 16:49:10 [1498927750] :   running query 6
+2017-07-01 16:49:15 [1498927755] :     query 6 finished OK (1 seconds)
+2017-07-01 16:49:15 [1498927755] :   running query 7
+2017-07-01 16:49:29 [1498927769] :     query 7 finished OK (1 seconds)
+2017-07-01 16:49:29 [1498927769] :   running query 8
+2017-07-01 16:49:42 [1498927782] :     query 8 finished OK (1 seconds)
+2017-07-01 16:49:42 [1498927782] :   running query 9
+2017-07-01 16:49:53 [1498927793] :     query 9 finished OK (2 seconds)
+2017-07-01 16:49:53 [1498927793] :   running query 10
+2017-07-01 16:50:04 [1498927804] :     query 10 finished OK (1 seconds)
+2017-07-01 16:50:04 [1498927804] :   running query 11
+2017-07-01 16:50:12 [1498927812] :     query 11 finished OK (1 seconds)
+2017-07-01 16:50:12 [1498927812] :   running query 12
+2017-07-01 16:50:19 [1498927819] :     query 12 finished OK (1 seconds)
+2017-07-01 16:50:19 [1498927819] :   running query 13
+2017-07-01 16:50:29 [1498927829] :     query 13 finished OK (2 seconds)
+2017-07-01 16:50:29 [1498927829] :   running query 14
+2017-07-01 16:50:36 [1498927836] :     query 14 finished OK (1 seconds)
+2017-07-01 16:50:36 [1498927836] :   running query 15
+2017-07-01 16:50:50 [1498927850] :     query 15 finished OK (2 seconds)
+2017-07-01 16:50:50 [1498927850] :   running query 16
+2017-07-01 16:50:59 [1498927859] :     query 16 finished OK (1 seconds)
+2017-07-01 16:50:59 [1498927859] :   running query 17
+2017-07-01 16:51:09 [1498927869] :     query 17 finished OK (2 seconds)
+2017-07-01 16:51:09 [1498927869] :   running query 18
+2017-07-01 16:51:21 [1498927881] :     query 18 finished OK (2 seconds)
+2017-07-01 16:51:21 [1498927881] :   running query 19
+2017-07-01 16:51:27 [1498927887] :     query 19 finished OK (1 seconds)
+2017-07-01 16:51:27 [1498927887] :   running query 20
+2017-07-01 16:51:37 [1498927897] :     query 20 finished OK (1 seconds)
+2017-07-01 16:51:37 [1498927897] :   running query 21
+2017-07-01 16:52:02 [1498927922] :     query 21 finished OK (2 seconds)
+2017-07-01 16:52:02 [1498927922] :   running query 22
+2017-07-01 16:52:28 [1498927948] :     query 22 finished OK (2 seconds)
+2017-07-01 16:52:28 [1498927948] : finished TPC-H benchmark

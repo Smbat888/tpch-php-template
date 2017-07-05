@@ -1,0 +1,31 @@
+                                                                                        QUERY PLAN                                                                                        
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ XN Limit  (cost=1000004319704.04..1000004319704.04 rows=2 width=211)
+   ->  XN Merge  (cost=1000004319704.04..1000004319704.04 rows=2 width=211)
+         Merge Key: sum((lineitem.l_extendedprice * (1::numeric - lineitem.l_discount)))
+         ->  XN Network  (cost=1000004319704.04..1000004319704.04 rows=2 width=211)
+               Send to leader
+               ->  XN Sort  (cost=1000004319704.04..1000004319704.04 rows=2 width=211)
+                     Sort Key: sum((lineitem.l_extendedprice * (1::numeric - lineitem.l_discount)))
+                     ->  XN HashAggregate  (cost=4319704.01..4319704.03 rows=2 width=211)
+                           ->  XN Hash Join DS_BCAST_INNER  (cost=2145875.59..4319703.97 rows=2 width=211)
+                                 Hash Cond: ("outer".l_orderkey = "inner".o_orderkey)
+                                 ->  XN Seq Scan on lineitem  (cost=0.00..75015.19 rows=1505054 width=27)
+                                       Filter: (l_returnflag = 'R'::bpchar)
+                                 ->  XN Hash  (cost=2145875.59..2145875.59 rows=1 width=200)
+                                       ->  XN Hash Join DS_BCAST_INNER  (cost=265875.02..2145875.59 rows=1 width=200)
+                                             Hash Cond: ("outer".n_nationkey = "inner".c_nationkey)
+                                             ->  XN Seq Scan on nation  (cost=0.00..0.25 rows=25 width=37)
+                                             ->  XN Hash  (cost=265875.01..265875.01 rows=1 width=179)
+                                                   ->  XN Hash Join DS_BCAST_INNER  (cost=22500.00..265875.01 rows=1 width=179)
+                                                         Hash Cond: ("outer".c_custkey = "inner".o_custkey)
+                                                         ->  XN Seq Scan on customer  (cost=0.00..1500.00 rows=150000 width=171)
+                                                         ->  XN Hash  (cost=22500.00..22500.00 rows=1 width=16)
+                                                               ->  XN Seq Scan on orders  (cost=0.00..22500.00 rows=1 width=16)
+                                                                     Filter: ((o_orderdate < '1993-09-01 00:00:00'::timestamp without time zone) AND (o_orderdate >= '1993-09-01'::date))
+(23 rows)
+
+ c_custkey | c_name | revenue | c_acctbal | n_name | c_address | c_phone | c_comment 
+-----------+--------+---------+-----------+--------+-----------+---------+-----------
+(0 rows)
+

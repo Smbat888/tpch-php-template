@@ -1,0 +1,40 @@
+                                                         QUERY PLAN                                                         
+----------------------------------------------------------------------------------------------------------------------------
+ XN Limit  (cost=1000128357927.37..1000128357927.38 rows=1 width=22)
+   InitPlan
+     ->  XN Aggregate  (cost=64178630.17..64178630.17 rows=1 width=14)
+           ->  XN Hash Join DS_BCAST_INNER  (cost=160230.32..64178550.20 rows=31988 width=14)
+                 Hash Cond: ("outer".ps_suppkey = "inner".s_suppkey)
+                 ->  XN Seq Scan on partsupp  (cost=0.00..8000.00 rows=800000 width=22)
+                 ->  XN Hash  (cost=160229.32..160229.32 rows=400 width=8)
+                       ->  XN Hash Join DS_BCAST_INNER  (cost=0.32..160229.32 rows=400 width=8)
+                             Hash Cond: ("outer".s_nationkey = "inner".n_nationkey)
+                             ->  XN Seq Scan on supplier  (cost=0.00..100.00 rows=10000 width=16)
+                             ->  XN Hash  (cost=0.31..0.31 rows=1 width=8)
+                                   ->  XN Seq Scan on nation  (cost=0.00..0.31 rows=1 width=8)
+                                         Filter: (n_name = 'ROMANIA'::bpchar)
+   ->  XN Merge  (cost=1000064179297.19..1000064179312.07 rows=1000 width=22)
+         Merge Key: sum(((partsupp.ps_availqty)::numeric * partsupp.ps_supplycost))
+         ->  XN Network  (cost=1000064179297.19..1000064179312.07 rows=5952 width=22)
+               Send to leader
+               ->  XN Sort  (cost=1000064179297.19..1000064179312.07 rows=5952 width=22)
+                     Sort Key: sum(((partsupp.ps_availqty)::numeric * partsupp.ps_supplycost))
+                     ->  XN HashAggregate  (cost=64178790.10..64178924.02 rows=5952 width=22)
+                           Filter: (($0)::numeric(38,10) < (sum(((ps_availqty)::numeric * ps_supplycost)))::numeric(38,10))
+                           ->  XN Hash Join DS_BCAST_INNER  (cost=160230.32..64178550.20 rows=31988 width=22)
+                                 Hash Cond: ("outer".ps_suppkey = "inner".s_suppkey)
+                                 ->  XN Seq Scan on partsupp  (cost=0.00..8000.00 rows=800000 width=30)
+                                 ->  XN Hash  (cost=160229.32..160229.32 rows=400 width=8)
+                                       ->  XN Hash Join DS_BCAST_INNER  (cost=0.32..160229.32 rows=400 width=8)
+                                             Hash Cond: ("outer".s_nationkey = "inner".n_nationkey)
+                                             ->  XN Seq Scan on supplier  (cost=0.00..100.00 rows=10000 width=16)
+                                             ->  XN Hash  (cost=0.31..0.31 rows=1 width=8)
+                                                   ->  XN Seq Scan on nation  (cost=0.00..0.31 rows=1 width=8)
+                                                         Filter: (n_name = 'ROMANIA'::bpchar)
+(31 rows)
+
+ ps_partkey |  value   
+------------+----------
+        469 | 17164217
+(1 row)
+
